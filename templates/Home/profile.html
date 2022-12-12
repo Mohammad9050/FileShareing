@@ -1,0 +1,8 @@
+{%  extends '_base.html' %}
+{% load static %}
+{% block content %}
+    <h2>{{ user.username }}</h2>
+    {% for i in con %}
+        <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }}</p>
+    {% endfor %}
+{% endblock %}
