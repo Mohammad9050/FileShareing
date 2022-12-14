@@ -2,7 +2,15 @@
 {% load static %}
 {% block content %}
     <h2>{{ user.username }}</h2>
+    <h3>{{ user.profile.size_used | filesizeformat }} / 100 MB</h3>
     {% for i in con %}
         <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }}</p>
     {% endfor %}
+    <h2>Upload File</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Upload</button>
+
+    </form>
 {% endblock %}

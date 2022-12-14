@@ -5,6 +5,8 @@ from Accounts.forms import *
 
 
 # Create your views here.
+from Accounts.models import Profile
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -15,6 +17,7 @@ def sign_up(request):
             password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
             login(request, user)
+            Profile.objects.create(user=user)
             return HttpResponse(username)
     else:
         form = SignUpForm()
