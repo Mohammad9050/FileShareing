@@ -4,7 +4,9 @@
     <h2>{{ user.username }}</h2>
     <h3>{{ user.profile.size_used | filesizeformat }} / 100 MB</h3>
     {% for i in con %}
-        <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }}</p>
+        <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }},,,,
+        <a href="{{ i.content.url }}">download</a>
+        </p>
     {% endfor %}
     <h2>Upload File</h2>
     <form action="" method="post" enctype="multipart/form-data">

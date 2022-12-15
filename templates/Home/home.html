@@ -2,4 +2,11 @@
 {% load static %}
 {% block content %}
     <h1>{{ user.username }} s</h1>
+    <form action="" method="get">
+        {{ form }}
+        <button type="submit">search</button>
+    </form>
+    {% for i in names %}
+        <a href="{% url 'other' num=i.user.id %}">{{ i.user.username }}</a>
+    {% endfor %}
 {% endblock %}

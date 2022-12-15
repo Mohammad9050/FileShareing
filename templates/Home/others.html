@@ -1,0 +1,8 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+    <h2>{{ pro.user.username }}</h2>
+    {% for i in posts %}
+        <p>{{ i.title }} >> {{ i.user.username }},, {{ i.content.size | filesizeformat }}<br> <a href="{{ i.content.url }}">download</a></p>
+    {% endfor %}
+{% endblock %}

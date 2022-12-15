@@ -3,13 +3,21 @@ from django.shortcuts import render
 # Create your views here.
 
 # Home
+from Accounts.forms import SearchForm
 from Accounts.models import Profile
 from Home.forms import fileForm
 from Home.models import PostModel
 
 
 def home_view(request):
-    return render(request, 'Home/home.html', {'user': request.user})
+    form = SearchForm(request.GET)
+    names = Profile.objects.all()
+    if form.is_valid():
+        names = Profile.objects.filter(user__username__contains=form.cleaned_data['name']).exclude(user=request.user)
+    context = {'user': request.user,
+               'names': names,
+               'form': form}
+    return render(request, 'Home/home.html', context)
 
 
 def profile(request):
@@ -37,3 +45,11 @@ def profile(request):
                'con': contents,
                'form': form}
     return render(request, 'Home/profile.html', context)
+
+
+def other_view(request, num):
+    pro = Profile.objects.get(user_id=num)
+    posts = PostModel.objects.filter(user_id=num)
+    context = {'posts': posts,
+               'pro': pro}
+    return render(request, 'Home/others.html', context)

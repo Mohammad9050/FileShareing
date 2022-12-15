@@ -18,3 +18,7 @@ class SignUpForm(UserCreationForm):
             'password1',
             'password2',
         ]
+
+
+class SearchForm(forms.Form):
+    name = forms.CharField(max_length=50, required=False)
