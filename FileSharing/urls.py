@@ -22,7 +22,7 @@ import Accounts
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Home.urls')),
-    path('Accounts/', include('Accounts.urls'))
+    path('accounts/', include('Accounts.urls'))
 ]
 if settings.DEBUG:
     from django.conf.urls.static import static

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 # Create your views here.
@@ -13,13 +14,18 @@ def home_view(request):
     form = SearchForm(request.GET)
     names = Profile.objects.all()
     if form.is_valid():
-        names = Profile.objects.filter(user__username__contains=form.cleaned_data['name']).exclude(user=request.user)
+        if request.user.is_authenticated:
+            names = Profile.objects.filter(user__username__contains=form.cleaned_data['name']).exclude(
+                user=request.user)
+        else:
+            names = Profile.objects.filter(user__username__contains=form.cleaned_data['name'])
     context = {'user': request.user,
                'names': names,
                'form': form}
     return render(request, 'Home/home.html', context)
 
 
+@login_required
 def profile(request):
     user = request.user
 

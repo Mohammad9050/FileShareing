@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from Accounts.forms import *
+from django.urls import reverse
 
+from Accounts.forms import *
 
 # Create your views here.
 from Accounts.models import Profile
@@ -36,6 +37,11 @@ def login_view(request):
             return render(request, 'Accounts/login.html', context)
         else:
             login(request, user)
-            return HttpResponse(username)
+            return HttpResponseRedirect(reverse('home'))
     else:
         return render(request, 'Accounts/login.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
