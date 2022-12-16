@@ -1,13 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
-# Create your views here.
-
-# Home
 from Accounts.forms import SearchForm
 from Accounts.models import Profile
 from Home.forms import fileForm
 from Home.models import PostModel
+from django.contrib import messages
 
 
 def home_view(request):
@@ -37,13 +34,12 @@ def profile(request):
             content = request.FILES['content']
             desc = form.cleaned_data['desc']
 
-            print('hi')
             if Profile.objects.get(user=user).computing_size(content.size):
-                print(content.size)
 
                 PostModel.objects.create(title=title, content=content, desc=desc, user=request.user)
+                messages.success(request, 'upload successfully')
             else:
-                print('size is full')
+                messages.error(request, 'you are not have enough size')
     else:
         form = fileForm()
     contents = PostModel.objects.filter(user=user)

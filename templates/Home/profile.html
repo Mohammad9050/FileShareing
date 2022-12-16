@@ -18,6 +18,7 @@
 
   </div>
   </div>
+    {% include '_messages.html' %}
     <h2>{{ user.username }}</h2>
     <h3>{{ user.profile.size_used | filesizeformat }} / 100 MB</h3>
     {% for i in con %}
