@@ -2,6 +2,7 @@
 {% load static %}
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{% static "Accounts/header.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "Accounts/users.css" %}">
 {% endblock %}
 {% block content %}
 
@@ -29,6 +30,14 @@
         <button type="submit">search</button>
     </form>
     {% for i in names %}
-        <a href="{% url 'other' num=i.user.id %}">{{ i.user.username }}</a>
+        <div class="card">
+            {{ i.user.username }}
+            <br><br>
+            <a href="{% url 'files' num=i.user.id %}">Files</a>
+            <br>
+            <p>{{ i.user.profile.size_used | filesizeformat }}/100MB</p>
+
+        </div>
+
     {% endfor %}
 {% endblock %}

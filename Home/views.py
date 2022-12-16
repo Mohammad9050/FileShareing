@@ -49,9 +49,15 @@ def profile(request):
     return render(request, 'Home/profile.html', context)
 
 
-def other_view(request, num):
+def files_view(request, num):
     pro = Profile.objects.get(user_id=num)
     posts = PostModel.objects.filter(user_id=num)
     context = {'posts': posts,
                'pro': pro}
-    return render(request, 'Home/others.html', context)
+    return render(request, 'Home/files.html', context)
+
+
+@login_required
+def detail_view(request, num):
+    post = PostModel.objects.get(pk=num)
+    return render(request, 'Home/post.html', {'post': post})

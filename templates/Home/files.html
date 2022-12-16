@@ -2,6 +2,8 @@
 {% load static %}
 {% block header %}
     <link rel="stylesheet" type="text/css" href="{% static "Accounts/header.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "Accounts/users.css" %}">
+
 {% endblock %}
 {% block content %}
     <div class="header">
@@ -21,7 +23,9 @@
   </div>
     <h2>{{ pro.user.username }}</h2>
     {% for i in posts %}
-        <p>{{ i.title }} >> {{ i.user.username }},, {{ i.content.size | filesizeformat }}<br>
-            <a {% if user.is_authenticated %} href="{{ i.content.url }}" {% else %} href="{% url 'login' %}" {% endif %}>download</a></p>
+        <div class="card">
+            <p>{{ i.title }}</p>  <br>
+            <a href="{% url 'detail' num=i.id %}" >More</a>
+        </div>
     {% endfor %}
 {% endblock %}

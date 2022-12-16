@@ -21,15 +21,17 @@
     {% include '_messages.html' %}
     <h2>{{ user.username }}</h2>
     <h3>{{ user.profile.size_used | filesizeformat }} / 100 MB</h3>
-    {% for i in con %}
-        <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }},,,,
-        <a href="{{ i.content.url }}">download</a>
-        </p>
-    {% endfor %}
+{#    {% for i in con %}#}
+{#        <p>{{ i.title }}   >>   {{ i.content.name }},, {{ i.content.size | filesizeformat }},,,,#}
+{#        <a href="{{ i.content.url }}">download</a>#}
+{#        </p>#}
+{#    {% endfor %}#}
+    <a href="{% url 'files' num=user.id %}">My files</a>
+    <hr>
     <h2>Upload File</h2>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data" style="margin-left: 20px">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <button type="submit">Upload</button>
 
     </form>
